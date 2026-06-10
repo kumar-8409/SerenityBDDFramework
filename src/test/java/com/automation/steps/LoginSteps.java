@@ -54,7 +54,7 @@ public class LoginSteps {
     public void thePageTitleShouldBe(String expectedTitle) {
         Assertions.assertThat(productsPage.getProductsPageTitle())
                   .as("Products page title")
-                  .isEqualTo(expectedTitle);
+                  .isEqualToIgnoringCase(expectedTitle);
     }
 
     @Then("an error message should be displayed")

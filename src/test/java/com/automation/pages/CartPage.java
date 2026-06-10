@@ -77,6 +77,6 @@ public class CartPage extends BasePage {
     }
 
     public String getConfirmationMessage() {
-        return getTextOf(CONFIRM_HEADER);
+        return getTextOf(CONFIRM_TEXT);
     }
 }
