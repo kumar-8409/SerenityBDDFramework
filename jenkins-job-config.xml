@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow-definition plugin="workflow-job@1252.v29ee94b_4b_5f7">
+  <actions/>
+  <description>Serenity BDD Framework - Automated Testing Pipeline</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coralogix.jenkins.plugin.CoralogixGlobalConfig plugin="coralogix@1.1">
+      <shouldSend>false</shouldSend>
+    </com.coralogix.jenkins.plugin.CoralogixGlobalConfig>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>BROWSER</name>
+          <description>Browser to run tests with (chrome|firefox)</description>
+          <defaultValue>chrome</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>HEADLESS</name>
+          <description>Run browser in headless mode</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers>
+        <com.cloudbees.jenkins.plugins.bitbucket.server.trigger.BitbucketServerRepositoryTrigger plugin="bitbucket-server-trigger@9.3.0">
+          <repositoryPushAction>true</repositoryPushAction>
+          <repositoryPullRequestCreatedAction>false</repositoryPullRequestCreatedAction>
+          <repositoryPullRequestUpdatedAction>false</repositoryPullRequestUpdatedAction>
+          <repositoryPullRequestSourceUpdatedAction>false</repositoryPullRequestSourceUpdatedAction>
+          <repositoryPullRequestMergedAction>false</repositoryPullRequestMergedAction>
+          <repositoryPullRequestDeclinedAction>false</repositoryPullRequestDeclinedAction>
+          <repositoryPullRequestDeletedAction>false</repositoryPullRequestDeletedAction>
+          <repositoryDefaultBranchUpdated>false</repositoryDefaultBranchUpdated>
+          <ciSkipFhrConfigSupport>false</ciSkipFhrConfigSupport>
+          <overrideHookManagement>false</overrideHookManagement>
+          <autoDeclineOldPullRequests>false</autoDeclineOldPullRequests>
+        </com.cloudbees.jenkins.plugins.bitbucket.server.trigger.BitbucketServerRepositoryTrigger>
+      </triggers>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2795.v2b_5e9644b_07c">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@5.2.0">
+      <configVersion>2</configVersion>
+      <userRemoteConfigs>
+        <hudson.plugins.git.UserRemoteConfig>
+          <url>https://github.com/kumar-8409/SerenityBDDFramework.git</url>
+          <credentialsId></credentialsId>
+        </hudson.plugins.git.UserRemoteConfig>
+      </userRemoteConfigs>
+      <branches>
+        <hudson.plugins.git.BranchSpec>
+          <name>*/main</name>
+        </hudson.plugins.git.BranchSpec>
+      </branches>
+      <browser class="hudson.plugins.git.browser.GithubWeb">
+        <repoUrl>https://github.com/kumar-8409/SerenityBDDFramework</repoUrl>
+      </browser>
+      <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+      <submoduleCfg class="java.util.ArrayList"/>
+      <extensions>
+        <hudson.plugins.git.extensions.impl.CloneOption>
+          <shallow>false</shallow>
+          <noTags>false</noTags>
+          <reference></reference>
+          <timeout>10</timeout>
+          <depth>0</depth>
+          <honorRefspec>false</honorRefspec>
+        </hudson.plugins.git.extensions.impl.CloneOption>
+      </extensions>
+    </scm>
+    <scriptPath>Jenkinsfile</scriptPath>
+    <lightweight>false</lightweight>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
